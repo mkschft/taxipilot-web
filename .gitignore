@@ -1,0 +1,10 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Vercel
+.vercel/
+
+# Node (not needed for this static site, but safe)
+node_modules/
+npm-debug.log*
