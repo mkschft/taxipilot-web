@@ -88,6 +88,22 @@
   .lens p{font-size:12px;margin-top:4px;line-height:1.4}
   .hl-bad{background:linear-gradient(180deg,transparent 58%,#FBC9C9 58%);padding:0 2px;border-radius:2px;font-weight:700}
 
+  .fails{margin-top:28px;background:#FDF1F1;border:1px solid #F6D6D6;border-radius:16px;padding:22px 22px 8px}
+  .fails ul{list-style:none;display:grid;gap:2px}
+  @media(min-width:620px){.fails ul{grid-template-columns:1fr 1fr;gap:2px 26px}}
+  .fails li{display:flex;align-items:flex-start;gap:11px;padding:10px 0;font-size:15px;color:var(--ink);border-bottom:1px solid rgba(214,108,108,.16)}
+  @media(min-width:620px){.fails li:nth-last-child(-n+1){border-bottom:none}}
+  .fails li:last-child{border-bottom:none}
+  .fails .x{flex:none;width:22px;height:22px;border-radius:999px;background:#F4C9C9;color:#C0392B;display:flex;align-items:center;justify-content:center;margin-top:1px}
+  .fails li b{font-weight:800}
+  .fails li .fi{font-style:italic;color:var(--soft)}
+
+  .madefor{display:flex;gap:16px;align-items:flex-start;background:#EDF3FE;border:1px solid rgba(31,111,235,.18);border-radius:16px;padding:22px;margin-top:28px}
+  .madefor .ic{flex:none;width:44px;height:44px;border-radius:12px;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center}
+  .madefor h3{font-size:18px;font-weight:900;margin-bottom:6px}
+  .madefor p{font-size:14.5px;color:var(--soft);line-height:1.5}
+  .madefor p .fi{font-style:italic;color:var(--navy);font-weight:600}
+
   .guidecard{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px;margin-top:26px;text-align:center}
   .guidecard h3{font-size:20px;font-weight:900;margin-bottom:6px}
   .guidecard p{font-size:15px;color:var(--soft);margin-bottom:14px}
@@ -120,6 +136,7 @@
     {"@type":"Course","name":"Finnish Taxi Driver Exam Preparation (English + Finnish)","description":"Preparation for the Finnish taxi driver exam (taksinkuljettajan koe): 327+ practice questions, 5 timed mock exams, vocabulary, and the clue-word method, shown in Finnish and English.","provider":{"@id":"https://taxipilot.fi/#org"},"inLanguage":["en","fi"],"about":"Finnish taxi driver licence","hasCourseInstance":{"@type":"CourseInstance","courseMode":"online","courseWorkload":"PT6H"}},
     {"@type":"FAQPage","mainEntity":[
       {"@type":"Question","name":"Can I prepare for the Finnish taxi exam in English?","acceptedAnswer":{"@type":"Answer","text":"Yes. The exam is in Finnish, but you can study in English. TaxiPilot shows every question in Finnish and English side by side and teaches the Finnish clue words that signal the correct answer."}},
+      {"@type":"Question","name":"Can I use TaxiPilot if my Finnish is weak?","acceptedAnswer":{"@type":"Answer","text":"Yes. TaxiPilot is built for non-native speakers. Every question is shown in English, and the Finnish words that decide the answer are highlighted and explained, so you can learn the exam's pattern without needing fluent Finnish."}},
       {"@type":"Question","name":"How many questions are on the Finnish taxi driver exam?","acceptedAnswer":{"@type":"Answer","text":"The exam has 50 multiple-choice questions and lasts a maximum of 45 minutes, taken at an Ajovarma office."}},
       {"@type":"Question","name":"Is TaxiPilot free to start?","acceptedAnswer":{"@type":"Answer","text":"Yes. You can take a free 5-question practice test with no sign-up, and start the full app with a free set and practice questions — no card needed."}},
       {"@type":"Question","name":"Who is TaxiPilot for?","acceptedAnswer":{"@type":"Answer","text":"Drivers in Helsinki and across Finland preparing for the official taxi driver exam, especially non-native Finnish speakers for whom the Finnish language is the main barrier."}}
@@ -144,11 +161,11 @@
 <!-- HERO -->
 <section class="hero">
   <div class="inner">
-    <span class="eyebrow"><span class="fi">FI</span> For drivers in Helsinki</span>
-    <h1>Pass the Finnish taxi exam.<br /><span class="accent">In your language.</span></h1>
-    <p class="sub">You already know how to drive. We help you get past the Finnish — so you can get back to work. Start with a free 2-minute test.</p>
+    <span class="eyebrow"><span class="fi">FI</span> Don't fall short by 1–3 marks</span>
+    <h1>Pass the Finnish taxi exam<br /><span class="accent">with confidence.</span></h1>
+    <p class="sub">You already know how to drive. TaxiPilot teaches the exam's Finnish words, clue phrases and question patterns — so you pick the best answer faster, even if your Finnish is still weak.</p>
     <a class="cta" href="practice-test.html">Take the free practice test →</a>
-    <a class="cta ghost" href="https://taxipilot.fi/app/welcome">Or open the full app free</a>
+    <a class="cta ghost" href="https://app.taxipilot.fi">Or open the full app free</a>
     <div class="reassure">
       <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#7FE0AC" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg> No sign-up to try</span>
       <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#7FE0AC" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg> Finnish + English</span>
@@ -159,24 +176,27 @@
 <!-- OFFICIAL FACTS -->
 <div class="facts">
   <div class="wrap">
-    <div><b>50</b><span>exam questions</span></div>
-    <div><b>45 min</b><span>time limit</span></div>
-    <div><b>327+</b><span>questions to practise</span></div>
-    <div><b>5 yrs</b><span>licence validity</span></div>
-    <p class="src">Official exam: 50 questions in 45 minutes, taken at Ajovarma. <a href="guide/how-to-get-a-taxi-licence-in-finland.html" style="color:var(--brand);font-weight:700">See the full guide →</a></p>
+    <div><b>327+</b><span>questions</span></div>
+    <div><b>5</b><span>timed mock exams</span></div>
+    <div><b>FI + EN</b><span>side by side</span></div>
+    <div><b>Free</b><span>to start</span></div>
+    <p class="src">The official exam is 50 questions in 45 minutes, taken at Ajovarma. <a href="guide/how-to-get-a-taxi-licence-in-finland.html" style="color:var(--brand);font-weight:700">See the full guide →</a></p>
   </div>
 </div>
 
-<!-- HOW -->
-<section class="block">
-  <p class="kicker">How it works</p>
-  <h2>Four steps, in the order that works</h2>
-  <p class="lead">Understand the words, learn the exam's logic, drill by topic, then simulate the real thing.</p>
-  <div class="steps">
-    <div class="step"><div class="ic" style="background:#EDF3FE;color:var(--brand)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 7V5h16v2M9 19h6M12 5v14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div><h3>1 · Vocabulary</h3><p>The exact Finnish words that appear on the exam — with English meaning and how each is used.</p></div>
-    <div class="step edge"><span class="badge">Our edge</span><div class="ic" style="background:#E8F6EF;color:var(--success)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/></svg></div><h3>2 · Clue Words</h3><p>Learn the Finnish words that point to the right answer — so you can reason out questions you've never seen.</p></div>
-    <div class="step"><div class="ic" style="background:#FDF6E7;color:#B97A00"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 014 0M9 13l1.5 1.5L15 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>3 · Topic Practice</h3><p>Drill one official exam section at a time, with instant explanations on every answer.</p></div>
-    <div class="step"><div class="ic" style="background:#FDECEC;color:#E23B3B"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="13" r="8" stroke="currentColor" stroke-width="2"/><path d="M12 9v4l2.5 2.5M9 2h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div><h3>4 · Mock Exams</h3><p>Five full timed simulations — 50 questions, the clock running, just like exam day.</p></div>
+<!-- WHY PEOPLE FAIL -->
+<section class="block" style="padding-bottom:10px">
+  <p class="kicker">The real problem</p>
+  <h2>It's not the driving. It's the Finnish.</h2>
+  <p class="lead">Most people who fail aren't bad drivers — they misread the question. Here's where the exam actually catches non-native speakers.</p>
+  <div class="fails">
+    <ul>
+      <li><span class="x"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></span><span><b>Misreading the wording</b> — one Finnish word flips the whole meaning.</span></li>
+      <li><span class="x"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></span><span><b>Missing the clue word</b> — <span class="fi">kieltäytyä, ei saa, on velvollinen</span> decide the answer, and they're easy to skip.</span></li>
+      <li><span class="x"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></span><span><b>Picking the "good" answer, not the exam's</b> — the test wants the one fully-correct option.</span></li>
+      <li><span class="x"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></span><span><b>Thin vocabulary</b> around passengers, safety, police, cancellations, accessibility and child seats.</span></li>
+      <li><span class="x"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></span><span><b>Losing by 1–3 marks</b> — so close, but it still means re-booking, re-paying and waiting.</span></li>
+    </ul>
   </div>
 </section>
 
@@ -199,6 +219,14 @@
     </div></div>
   </div>
 
+  <div class="madefor">
+    <span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 7l9-4 9 4-9 4-9-4z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M7 10v4c0 1.1 2.2 2.5 5 2.5s5-1.4 5-2.5v-4M21 7v5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    <div>
+      <h3>Made for learners with weak Finnish</h3>
+      <p>TaxiPilot doesn't expect perfect Finnish. It helps you recognise the important words, understand what each question is really asking, and avoid the traps — in English the whole way through. <span class="fi">Suomen ei tarvitse olla täydellistä.</span></p>
+    </div>
+  </div>
+
   <div class="guidecard">
     <h3>New to all this?</h3>
     <p>Read the full 2026 guide: requirements, the exam, how to apply, cost and validity.</p>
@@ -212,9 +240,11 @@
   <h2>Good to know</h2>
   <div style="margin-top:18px">
     <details open><summary>Can I prepare in English?<span class="chev"></span></summary><p>Yes. The exam is in Finnish, but you study in English. Every question is shown in Finnish and English side by side, and the Finnish clue words are highlighted and explained.</p></details>
+    <details><summary>Can I use it if my Finnish is weak?<span class="chev"></span></summary><p>Yes — that's exactly who it's built for. Every question is shown in English, and the Finnish words that decide the answer are highlighted and explained, so you learn the exam's pattern without needing fluent Finnish.</p></details>
     <details><summary>How many questions are on the real exam?<span class="chev"></span></summary><p>50 multiple-choice questions, maximum 45 minutes, taken at an Ajovarma office. Since November 2025 it's a centralised group exam across about 12 locations.</p></details>
+    <details><summary>Do all paid plans include full access?<span class="chev"></span></summary><p>Yes. Every plan includes the same questions, vocabulary and mock exams — plans differ only in how many days of access you get.</p></details>
     <details><summary>Is it free to start?<span class="chev"></span></summary><p>Yes — take the free 5-question practice test with no sign-up, then open the full app with a free set and practice questions. No card needed.</p></details>
-    <details><summary>Who is it for?<span class="chev"></span></summary><p>Drivers in Helsinki and across Finland preparing for the official taxi exam — especially non-native Finnish speakers, where the language is the real barrier.</p></details>
+    <details><summary>Is TaxiPilot official?<span class="chev"></span></summary><p>No. It's an independent study tool for the taxi driver exam — not affiliated with or endorsed by Traficom.</p></details>
   </div>
 </section>
 
@@ -222,14 +252,14 @@
 <section class="final">
   <div class="inner">
     <h2>Your exam date is coming.</h2>
-    <p>Start with the free test — two minutes, no sign-up. See exactly where you stand.</p>
+    <p>Start with the free test — two minutes, no sign-up. See exactly which words are costing you marks.</p>
     <a class="cta white" href="practice-test.html">Take the free practice test →</a>
   </div>
 </section>
 
 <footer>
   <p><b>TaxiPilot · Helsinki, Finland</b></p>
-  <p><a href="practice-test.html">Free test</a> · <a href="guide/how-to-get-a-taxi-licence-in-finland.html">Guide</a> · <a href="https://app.taxipilot.fi">Open the app</a></p>
+  <p><a href="practice-test.html">Free test</a> · <a href="guide/how-to-get-a-taxi-licence-in-finland.html">Guide</a> · <a href="refer.html">Refer &amp; earn</a> · <a href="https://app.taxipilot.fi">Open the app</a></p>
   <p style="margin-top:6px">Independent study tool. Not affiliated with or endorsed by Traficom.</p>
 </footer>
 </body>
