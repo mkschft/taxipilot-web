@@ -266,6 +266,23 @@
       color: var(--blue-600);
     }
 
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex: 0 0 auto;
+    }
+
+    .nav-sign-in {
+      color: var(--grey-700);
+      font-size: 0.93rem;
+      font-weight: 750;
+    }
+
+    .nav-sign-in:hover {
+      color: var(--blue-600);
+    }
+
     .hero-scroll-stage {
       height: 250vh;
     }
@@ -1200,10 +1217,12 @@
         <a href="#features">What you get</a>
         <a href="#pricing">Pricing</a>
         <a href="#faq">FAQ</a>
-        <a href="https://taxipilot.fi/">Sign in</a>
       </nav>
 
-      <a class="button button--primary" href="practice-test.html">Try for free</a>
+      <div class="nav-actions">
+        <a class="nav-sign-in" href="https://taxipilot.fi/">Sign in</a>
+        <a class="button button--primary" href="practice-test.html">Try for free</a>
+      </div>
     </div>
   </header>
 
