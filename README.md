@@ -4,6 +4,18 @@ A small, fast, static site built to **win traffic and get cited by AI answer eng
 Perplexity, Google AI Overviews) — then funnel that traffic into the app. No build step, no framework.
 Pure HTML/CSS/JS + Inter. Deploy anywhere static.
 
+## Local development
+
+Install dependencies once, then start the development server:
+
+```bash
+npm install
+npm run dev
+```
+
+Open the local URL printed in the terminal. Vite reloads the browser when an HTML, CSS, or JavaScript
+file changes. This tooling is only for local development; production remains a build-free static deploy.
+
 ## The strategy (three acquisition angles, one funnel)
 
 1. **Free practice test** (`practice-test.html`) — the **share/virality engine**. People take a 2-minute
@@ -42,7 +54,7 @@ falls back to clean navy.
 
 ## Deploy
 ```
-cd site
+cd landing
 npx vercel --prod --yes
 ```
 Then in Google Search Console: submit `sitemap.xml`. In Bing Webmaster Tools: same.

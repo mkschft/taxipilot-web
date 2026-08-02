@@ -19,4 +19,4 @@
 
 ## Try the app
 
-- [Open the TaxiPilot app (free)](https://app.taxipilot.fi)
+- [Open the TaxiPilot app (free)](https://taxipilot.fi/)
