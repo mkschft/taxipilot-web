@@ -1,9 +1,46 @@
 # Deploy runbook — TaxiPilot landing (taxipilot.fi)
 
+## Production deployment (GitHub Actions → VPS)
+
+Every push to `main` runs `.github/workflows/deploy.yml`. The workflow connects to the VPS over SSH and
+runs, in order:
+
+```bash
+cd /var/www/landing
+git pull --ff-only origin main
+sudo -n nginx -t
+sudo -n systemctl reload nginx
+```
+
+The Nginx configuration is checked before it is reloaded, so an invalid configuration stops the
+deployment without reloading the service. Deployments can also be started manually from the repository's
+**Actions → Deploy landing → Run workflow** page.
+
+### Required GitHub configuration
+
+Create a `production` environment in the GitHub repository, then add these environment secrets:
+
+| Secret | Value |
+|---|---|
+| `DEPLOY_HOST` | VPS hostname or IP address |
+| `DEPLOY_PORT` | SSH port, normally `22` |
+| `DEPLOY_USER` | Unprivileged SSH deployment user |
+| `DEPLOY_SSH_PRIVATE_KEY` | Private key used only for GitHub Actions deployments |
+| `DEPLOY_SSH_KNOWN_HOSTS` | The VPS host-key line from a trusted `known_hosts` file |
+
+The checkout at `/var/www/landing` must be on `main`, have `origin` configured, and be able to read the
+GitHub repository (for example, through a read-only repository deploy key).
+
+The deployment user must be allowed to validate and reload Nginx without an interactive password. Grant
+only those commands in `sudoers`; do not give the deployment user unrestricted passwordless sudo. The
+exact executable paths can be found on the VPS with `command -v nginx` and `command -v systemctl`.
+
+The previous Vercel instructions are retained below as a legacy/alternative deployment path.
+
 This `site/` folder is a **complete, standalone static website** — no build step, no framework.
 It deploys **separately** from the app (that's intentional: zero coupling to the Expo build).
 
-## Final architecture (decided)
+## Legacy Vercel architecture
 
 | Domain | Serves | Vercel project |
 |---|---|---|
@@ -15,7 +52,7 @@ The landing's buttons already point to **https://app.taxipilot.fi**. The SEO met
 
 ---
 
-## Track A — Version control (new repo `taxipilot-web`)
+## Legacy Track A — Version control (new repo `taxipilot-web`)
 
 Run on your machine (it has your GitHub login; this sandbox does not).
 
@@ -39,7 +76,7 @@ gh repo create mkschft/taxipilot-web --private --source=. --remote=origin --push
 > Keeping it inside `taxi-app/site` instead? Then init git directly in `site/` — but a top-level
 > sibling repo (`taxipilot-web`) is cleaner and what we agreed on.
 
-## Track B — Deploy the landing on Vercel
+## Legacy Track B — Deploy the landing on Vercel
 
 Option 1 — connect the repo (recommended): Vercel dashboard → **Add New → Project** → import
 `taxipilot-web` → Framework preset **Other**, no build command, output = root → **Deploy**.
@@ -51,7 +88,7 @@ npx vercel --prod
 ```
 When prompted: new project, no framework, no build command.
 
-## Track C — Attach the domains (this is what makes it the front door)
+## Legacy Track C — Attach the domains (this is what makes it the front door)
 
 1. **Landing → apex.** In the `taxipilot-web` Vercel project → **Settings → Domains** → add
    `taxipilot.fi` and `www.taxipilot.fi`. Follow Vercel's DNS records (A / CNAME) at your registrar.

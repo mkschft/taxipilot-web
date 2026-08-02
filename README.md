@@ -53,10 +53,11 @@ Add `hero.jpg` (see `../landing-v2/README.md` for the image prompt) for the hero
 falls back to clean navy.
 
 ## Deploy
-```
-cd landing
-npx vercel --prod --yes
-```
+
+Pushes to `main` deploy automatically through GitHub Actions. The production workflow connects to the
+server, fast-forwards the checkout in `/var/www/landing`, validates the Nginx configuration, and reloads
+Nginx. See `DEPLOY.md` for the required GitHub secrets and one-time server setup.
+
 Then in Google Search Console: submit `sitemap.xml`. In Bing Webmaster Tools: same.
 
 ## The keyword / answer map (what we're ranking for)
