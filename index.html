@@ -530,55 +530,170 @@
       border-radius: 6px;
     }
 
-    .clue-icon {
-      display: grid;
-      width: 43px;
-      height: 43px;
-      margin-bottom: 17px;
-      place-items: center;
-      border-radius: 13px;
-    }
-
-    .clue-icon svg {
-      width: 22px;
-      height: 22px;
-      stroke-width: 2;
-    }
-
-    .clue-icon--focus {
-      color: var(--focus-text);
-      background: var(--focus-bg);
-    }
-
-    .clue-icon--positive {
-      color: var(--positive-text);
-      background: var(--positive-bg);
-    }
-
-    .clue-icon--negative {
-      color: var(--negative-text);
-      background: var(--negative-bg);
-    }
-
     .step-grid {
+      position: relative;
       grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-top: 48px;
+    }
+
+    .how-section {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 88% 4%, rgba(59, 130, 246, 0.11), transparent 30%),
+        linear-gradient(180deg, var(--white) 0%, var(--blue-50) 100%);
+    }
+
+    .how-section::after {
+      position: absolute;
+      right: -130px;
+      bottom: -210px;
+      width: 430px;
+      height: 430px;
+      border: 1px solid rgba(37, 99, 235, 0.09);
+      border-radius: 50%;
+      box-shadow:
+        0 0 0 52px rgba(37, 99, 235, 0.025),
+        0 0 0 104px rgba(37, 99, 235, 0.018);
+      content: "";
+      pointer-events: none;
+    }
+
+    .how-section .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .how-header {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .how-heading h2 {
+      max-width: 760px;
+      margin-bottom: 0;
+    }
+
+    .how-intro {
+      max-width: 720px;
+      margin: 0;
+      color: var(--grey-500);
+      font-size: 1.04rem;
+    }
+
+    .step-grid::before {
+      position: absolute;
+      top: 23px;
+      right: 11.5%;
+      left: 11.5%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--blue-600), var(--blue-500));
+      content: "";
+      transform-origin: left;
     }
 
     .step-card {
-      padding: 27px;
+      display: flex;
+      position: relative;
+      flex-direction: column;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .step-card-body {
+      flex: 1;
+      min-height: 205px;
+      margin-top: 20px;
+      padding: 27px 26px 29px;
+      border: 1px solid rgba(37, 99, 235, 0.13);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.88);
+      box-shadow: 0 16px 40px rgba(7, 21, 45, 0.07);
+      transition:
+        transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+    }
+
+    .step-card:hover .step-card-body {
+      border-color: rgba(37, 99, 235, 0.28);
+      box-shadow: 0 22px 48px rgba(7, 21, 45, 0.11);
+      transform: translateY(-5px);
     }
 
     .step-number {
       display: grid;
-      width: 40px;
-      height: 40px;
-      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+      width: 48px;
+      height: 48px;
+      margin-inline: auto;
       place-items: center;
       border-radius: 50%;
       color: var(--white);
       background: var(--blue-600);
       font-weight: 950;
-      box-shadow: 0 8px 18px rgba(37, 99, 235, 0.2);
+      box-shadow:
+        0 0 0 7px rgba(239, 246, 255, 0.96),
+        0 10px 22px rgba(37, 99, 235, 0.24);
+      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .step-card:hover .step-number {
+      transform: scale(1.06);
+    }
+
+    .step-phase {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--blue-600);
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    #how-it-works.journey--animated .how-header,
+    #how-it-works.journey--animated .step-card {
+      opacity: 0;
+      transform: translate3d(0, 26px, 0);
+      transition:
+        opacity 0.55s ease,
+        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    #how-it-works.journey--animated .step-grid::before {
+      transform: scaleX(0);
+      transition: transform 0.8s 0.16s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    #how-it-works.journey--animated.is-revealed .how-header,
+    #how-it-works.journey--animated.is-revealed .step-card {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+
+    #how-it-works.journey--animated.is-revealed .step-grid::before {
+      transform: scaleX(1);
+    }
+
+    #how-it-works.journey--animated.is-revealed .step-card:nth-child(1) {
+      transition-delay: 0.12s;
+    }
+
+    #how-it-works.journey--animated.is-revealed .step-card:nth-child(2) {
+      transition-delay: 0.2s;
+    }
+
+    #how-it-works.journey--animated.is-revealed .step-card:nth-child(3) {
+      transition-delay: 0.28s;
+    }
+
+    #how-it-works.journey--animated.is-revealed .step-card:nth-child(4) {
+      transition-delay: 0.36s;
     }
 
     .free-banner,
@@ -601,6 +716,10 @@
       max-width: 730px;
       margin-bottom: 0;
       color: rgba(255, 255, 255, 0.73);
+    }
+
+    .free-banner .button {
+      margin-top: 24px;
     }
 
     .pricing-grid {
@@ -702,15 +821,16 @@
 
     .faq-list {
       display: grid;
-      gap: 12px;
       max-width: 880px;
     }
 
     details {
       padding: 0 20px;
-      border: 1px solid var(--grey-200);
-      border-radius: 14px;
       background: var(--white);
+    }
+
+    .faq-list details + details {
+      border-top: 1px solid var(--grey-200);
     }
 
     summary {
@@ -763,6 +883,10 @@
 
       .pricing-card--featured {
         transform: none;
+      }
+
+      .step-grid::before {
+        display: none;
       }
     }
 
@@ -865,10 +989,60 @@
 
       .feature-grid,
       .pricing-grid,
-      .step-grid,
       .clue-grid,
       .footer-grid {
         grid-template-columns: 1fr;
+      }
+
+      .how-header {
+        gap: 18px;
+        grid-template-columns: 1fr;
+      }
+
+      .how-intro {
+        margin-bottom: 0;
+      }
+
+      .step-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        margin-top: 36px;
+      }
+
+      .step-grid::before {
+        display: block;
+        top: 40px;
+        right: auto;
+        bottom: 40px;
+        left: 23px;
+        width: 2px;
+        height: auto;
+        transform-origin: top;
+      }
+
+      #how-it-works.journey--animated .step-grid::before {
+        transform: scaleY(0);
+      }
+
+      #how-it-works.journey--animated.is-revealed .step-grid::before {
+        transform: scaleY(1);
+      }
+
+      .step-card {
+        display: grid;
+        align-items: start;
+        gap: 14px;
+        grid-template-columns: 48px minmax(0, 1fr);
+      }
+
+      .step-card-body {
+        min-height: 0;
+        margin-top: 0;
+        padding: 22px;
+      }
+
+      .step-number {
+        margin-top: 16px;
       }
 
       .clue-card + .clue-card {
@@ -922,8 +1096,15 @@
       }
 
       #features.features--animated .section-heading,
-      #features.features--animated .feature-card {
+      #features.features--animated .feature-card,
+      #how-it-works.journey--animated .how-header,
+      #how-it-works.journey--animated .step-card {
         opacity: 1;
+        transform: none;
+        transition: none;
+      }
+
+      #how-it-works.journey--animated .step-grid::before {
         transform: none;
         transition: none;
       }
@@ -1159,13 +1340,6 @@
 
         <div class="clue-grid">
           <article class="clue-card clue-card--focus">
-            <div class="clue-icon clue-icon--focus" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <circle cx="12" cy="12" r="8"/>
-                <circle cx="12" cy="12" r="3"/>
-                <path d="M12 2v2M12 20v2M2 12h2M20 12h2"/>
-              </svg>
-            </div>
             <h3>Focus words</h3>
             <p>
               Understand the main situation, passenger, condition or rule described
@@ -1183,12 +1357,6 @@
           </article>
 
           <article class="clue-card clue-card--positive">
-            <div class="clue-icon clue-icon--positive" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <circle cx="12" cy="12" r="9"/>
-                <path d="m8 12 2.6 2.6L16.5 9"/>
-              </svg>
-            </div>
             <h3>Positive clues</h3>
             <p>
               Recognise the short wording that supports the safest, lawful or most
@@ -1206,12 +1374,6 @@
           </article>
 
           <article class="clue-card clue-card--negative">
-            <div class="clue-icon clue-icon--negative" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path d="M12 3 2.8 19h18.4z"/>
-                <path d="M12 9v4M12 16.5h.01"/>
-              </svg>
-            </div>
             <h3>Negative clues</h3>
             <p>
               Spot words such as “only,” “always,” “without” or “not needed” that
@@ -1231,39 +1393,57 @@
       </div>
     </section>
 
-    <section class="section" id="how-it-works">
+    <section class="section how-section" id="how-it-works">
       <div class="container">
-        <div class="section-heading">
-          <span class="eyebrow">How it works</span>
-          <h2>Learn, recognise, practise and track your progress</h2>
+        <div class="how-header">
+          <div class="how-heading">
+            <span class="eyebrow">How it works</span>
+            <h2>From unfamiliar words to exam-ready answers</h2>
+          </div>
+          <p class="how-intro">
+            Follow one clear study route. Build the language first, learn to spot
+            the clue, then prove it under exam conditions.
+          </p>
         </div>
 
         <div class="step-grid">
           <article class="step-card">
             <div class="step-number">1</div>
-            <h3>Learn important vocabulary</h3>
-            <p>Study Finnish words organised by topic, meaning and exam context.</p>
+            <div class="step-card-body">
+              <span class="step-phase">Build the foundation</span>
+              <h3>Learn important vocabulary</h3>
+              <p>Study Finnish words organised by topic, meaning and exam context.</p>
+            </div>
           </article>
 
           <article class="step-card">
             <div class="step-number">2</div>
-            <h3>Practise with Clue Lens</h3>
-            <p>See the small number of words that explain or eliminate an answer.</p>
+            <div class="step-card-body">
+              <span class="step-phase">Read with purpose</span>
+              <h3>Practise with Clue Lens</h3>
+              <p>See the small number of words that explain or eliminate an answer.</p>
+            </div>
           </article>
 
           <article class="step-card">
             <div class="step-number">3</div>
-            <h3>Take timed mock exams</h3>
-            <p>Check whether you can recognise the best answer independently.</p>
+            <div class="step-card-body">
+              <span class="step-phase">Test your judgment</span>
+              <h3>Take timed mock exams</h3>
+              <p>Check whether you can recognise the best answer independently.</p>
+            </div>
           </article>
 
           <article class="step-card">
             <div class="step-number">4</div>
-            <h3>Track your progress</h3>
-            <p>
-              Follow your completed lessons, quiz results and mock-exam performance
-              to stay consistent until exam day.
-            </p>
+            <div class="step-card-body">
+              <span class="step-phase">Know when you’re ready</span>
+              <h3>Track your progress</h3>
+              <p>
+                Follow lessons, quiz results and mock-exam performance to stay
+                consistent until exam day.
+              </p>
+            </div>
           </article>
         </div>
       </div>
@@ -1280,9 +1460,9 @@
               creating an account. Purchase a short access pass when you are ready
               to unlock more lessons, questions and mock exams.
             </p>
-          </div>
 
-          <a class="button button--primary" href="practice-test.html">Start free</a>
+            <a class="button button--primary" href="practice-test.html">Start free</a>
+          </div>
         </div>
       </div>
     </section>
@@ -1485,6 +1665,7 @@
       const contrastCopy = document.querySelector('.hero-copy-panel--contrast');
       const taxi = document.querySelector('.hero-taxi');
       const features = document.querySelector('#features');
+      const journey = document.querySelector('#how-it-works');
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
       let frameRequested = false;
 
@@ -1507,6 +1688,27 @@
         });
 
         featuresObserver.observe(features);
+      }
+
+      const revealJourney = () => {
+        journey.classList.add('is-revealed');
+      };
+
+      journey.classList.add('journey--animated');
+
+      if (reducedMotion.matches || !('IntersectionObserver' in window)) {
+        revealJourney();
+      } else {
+        const journeyObserver = new IntersectionObserver((entries) => {
+          if (!entries.some((entry) => entry.isIntersecting)) return;
+          revealJourney();
+          journeyObserver.disconnect();
+        }, {
+          threshold: 0.18,
+          rootMargin: '0px 0px -8% 0px'
+        });
+
+        journeyObserver.observe(journey);
       }
 
       const renderHeroMotion = () => {
