@@ -283,6 +283,11 @@
       color: var(--blue-600);
     }
 
+    .mobile-menu-toggle,
+    .mobile-menu {
+      display: none;
+    }
+
     .hero-scroll-stage {
       height: 250vh;
     }
@@ -941,6 +946,100 @@
     }
 
     @media (max-width: 760px) {
+      .nav-actions {
+        display: none;
+      }
+
+      .mobile-menu-toggle {
+        display: inline-flex;
+        width: 42px;
+        height: 42px;
+        align-items: center;
+        justify-content: center;
+        border: 0;
+        border-radius: 6px;
+        color: var(--navy-950);
+        background: var(--white);
+        cursor: pointer;
+      }
+
+      .mobile-menu-icon,
+      .mobile-menu-icon::before,
+      .mobile-menu-icon::after {
+        width: 18px;
+        height: 2px;
+        border-radius: 2px;
+        background: currentColor;
+        transition: transform 0.18s ease, opacity 0.18s ease;
+      }
+
+      .mobile-menu-icon {
+        position: relative;
+      }
+
+      .mobile-menu-icon::before,
+      .mobile-menu-icon::after {
+        position: absolute;
+        left: 0;
+        content: "";
+      }
+
+      .mobile-menu-icon::before {
+        transform: translateY(-6px);
+      }
+
+      .mobile-menu-icon::after {
+        transform: translateY(6px);
+      }
+
+      .mobile-menu-toggle[aria-expanded="true"] .mobile-menu-icon {
+        background: transparent;
+      }
+
+      .mobile-menu-toggle[aria-expanded="true"] .mobile-menu-icon::before {
+        transform: rotate(45deg);
+      }
+
+      .mobile-menu-toggle[aria-expanded="true"] .mobile-menu-icon::after {
+        transform: rotate(-45deg);
+      }
+
+      .mobile-menu {
+        max-height: 0;
+        display: block;
+        overflow: hidden;
+        border-top: 1px solid transparent;
+        opacity: 0;
+        transition: max-height 0.24s ease, opacity 0.18s ease, border-color 0.18s ease;
+      }
+
+      .mobile-menu.is-open {
+        max-height: 420px;
+        border-top-color: var(--grey-200);
+        opacity: 1;
+      }
+
+      .mobile-menu-links {
+        display: grid;
+        gap: 0;
+        padding: 10px 0 18px;
+      }
+
+      .mobile-menu-links > a:not(.button) {
+        padding: 12px 0;
+        color: var(--grey-700);
+        font-weight: 750;
+      }
+
+      .mobile-menu-links > a:not(.button):hover {
+        color: var(--blue-600);
+      }
+
+      .mobile-menu-links .button {
+        width: 100%;
+        margin-top: 8px;
+      }
+
       .section {
         padding: 64px 0;
       }
@@ -1095,6 +1194,53 @@
       }
     }
 
+    @media (max-width: 560px) {
+      .site-header .container {
+        width: min(calc(100% - 24px), var(--container));
+      }
+
+      .hero,
+      .hero-contrast-layer {
+        padding-top: 124px;
+      }
+
+      .hero > .hero-grid,
+      .hero-contrast-layer .hero-grid {
+        width: min(calc(100% - 64px), var(--container));
+      }
+
+      .hero h1 {
+        font-size: clamp(1.85rem, 10vw, 2.05rem);
+      }
+
+      .hero-copy {
+        font-size: 0.9rem;
+      }
+
+      .nav {
+        gap: 10px;
+      }
+
+      .brand {
+        font-size: 1.05rem;
+      }
+
+      .nav-actions {
+        gap: 10px;
+      }
+
+      .nav-sign-in {
+        font-size: 0.82rem;
+      }
+
+      .nav .button {
+        min-height: 40px;
+        padding: 8px 10px;
+        font-size: 0.78rem;
+        white-space: nowrap;
+      }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       html {
         scroll-behavior: auto;
@@ -1223,7 +1369,34 @@
         <a class="nav-sign-in" href="https://taxipilot.fi/">Sign in</a>
         <a class="button button--primary" href="practice-test.html">Try for free</a>
       </div>
+
+      <button
+        class="mobile-menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Open navigation menu"
+      >
+        <span class="mobile-menu-icon" aria-hidden="true"></span>
+      </button>
     </div>
+
+    <nav
+      class="mobile-menu"
+      id="mobile-menu"
+      aria-label="Mobile navigation"
+      aria-hidden="true"
+      inert
+    >
+      <div class="container mobile-menu-links">
+        <a href="#how-it-works">How it works</a>
+        <a href="#features">What you get</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a href="https://taxipilot.fi/">Sign in</a>
+        <a class="button button--primary" href="practice-test.html">Try for free</a>
+      </div>
+    </nav>
   </header>
 
   <main id="top">
@@ -1685,8 +1858,37 @@
       const taxi = document.querySelector('.hero-taxi');
       const features = document.querySelector('#features');
       const journey = document.querySelector('#how-it-works');
+      const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+      const mobileMenu = document.querySelector('#mobile-menu');
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
       let frameRequested = false;
+
+      const setMobileMenuOpen = (isOpen) => {
+        mobileMenuToggle.setAttribute('aria-expanded', String(isOpen));
+        mobileMenuToggle.setAttribute(
+          'aria-label',
+          isOpen ? 'Close navigation menu' : 'Open navigation menu'
+        );
+        mobileMenu.classList.toggle('is-open', isOpen);
+        mobileMenu.setAttribute('aria-hidden', String(!isOpen));
+        mobileMenu.inert = !isOpen;
+      };
+
+      mobileMenuToggle.addEventListener('click', () => {
+        setMobileMenuOpen(mobileMenuToggle.getAttribute('aria-expanded') !== 'true');
+      });
+
+      mobileMenu.addEventListener('click', (event) => {
+        if (event.target.closest('a')) setMobileMenuOpen(false);
+      });
+
+      window.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') setMobileMenuOpen(false);
+      });
+
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 760) setMobileMenuOpen(false);
+      });
 
       const revealFeatures = () => {
         features.classList.add('is-revealed');
