@@ -8,6 +8,7 @@
     content="TaxiPilot helps learners prepare for the Finnish taxi driver exam with Finnish–English practice questions, vocabulary, clue words and timed mock exams."
   />
   <title>TaxiPilot — Finnish Taxi Exam Preparation</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="canonical" href="https://taxipilot.fi/" />
   <meta property="og:title" content="TaxiPilot — Finnish Taxi Exam Preparation" />
   <meta property="og:description" content="Understand the question, spot the clue and choose the best answer with Finnish–English taxi exam preparation." />
@@ -246,15 +247,10 @@
     }
 
     .brand-mark {
-      display: grid;
       width: 39px;
       height: 39px;
-      place-items: center;
-      border-radius: 12px;
-      color: var(--white);
-      background: linear-gradient(145deg, var(--blue-600), #0ea5e9);
-      box-shadow: 0 9px 22px rgba(37, 99, 235, 0.28);
-      font-weight: 950;
+      object-fit: contain;
+      flex: 0 0 auto;
     }
 
     .nav-links {
@@ -1445,7 +1441,7 @@
       <div class="footer-grid">
         <div>
           <div class="brand">
-            <span class="brand-mark">T</span>
+            <img class="brand-mark" src="favicon.svg" alt="" width="39" height="39" />
             <span style="color: white">TaxiPilot</span>
           </div>
           <p style="max-width: 520px; margin-top: 16px">
