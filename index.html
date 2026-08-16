@@ -1681,7 +1681,7 @@
               <li>Full Vocabulary &amp; Clue Words</li>
             </ul>
 
-            <a class="button button--secondary" href="https://taxipilot.fi/">
+            <a class="button button--secondary" href="https://www.taxipilot.fi/">
               Continue with free
             </a>
           </article>
@@ -1696,7 +1696,9 @@
               <li>Full Vocabulary &amp; Clue Words</li>
             </ul>
 
-            <a class="button button--secondary" href="https://taxipilot.fi/">
+            <a class="button button--secondary pricing-link" 
+               data-plan="1_day"
+               href="taxipilot://pricing?plan=1_day&utm_source=landing&utm_medium=button&utm_campaign=pricing">
               Get 1-day access
             </a>
           </article>
@@ -1713,7 +1715,9 @@
               <li>Full Vocabulary &amp; Clue Words</li>
             </ul>
 
-            <a class="button button--primary" href="https://taxipilot.fi/">
+            <a class="button button--primary pricing-link" 
+               data-plan="7_day"
+               href="taxipilot://pricing?plan=7_day&utm_source=landing&utm_medium=button&utm_campaign=pricing">
               Get 7-day access
             </a>
           </article>
@@ -1729,7 +1733,9 @@
               <li>Full Vocabulary &amp; Clue Words</li>
             </ul>
 
-            <a class="button button--secondary" href="https://taxipilot.fi/">
+            <a class="button button--secondary pricing-link" 
+               data-plan="14_day"
+               href="taxipilot://pricing?plan=14_day&utm_source=landing&utm_medium=button&utm_campaign=pricing">
               Get 14-day access
             </a>
           </article>
@@ -1987,6 +1993,21 @@
       window.addEventListener('resize', requestHeroMotion);
       reducedMotion.addEventListener('change', requestHeroMotion);
       renderHeroMotion();
+
+      // Smart pricing link handling: desktop users get web URL, mobile users get deep link
+      const isMobile = () => {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      };
+
+      const pricingLinks = document.querySelectorAll('.pricing-link');
+      pricingLinks.forEach(link => {
+        const plan = link.getAttribute('data-plan');
+        if (!isMobile()) {
+          // Desktop users: redirect to web app with plan parameter
+          link.href = `https://www.taxipilot.fi/pricing?plan=${plan}&utm_source=landing&utm_medium=button&utm_campaign=pricing`;
+        }
+        // Mobile users: keep the taxipilot:// deep link (already set in HTML)
+      });
     })();
   </script>
 </body>
